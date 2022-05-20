@@ -130,13 +130,13 @@ class YOLOV5ToCOCO(object):
             else:
                 cv2.imwrite(str(save_img_path), imgsrc)
 
-            images.append({
-                'date_captured': '2021',
-                'file_name': dest_file_name,
-                'id': img_id,
-                'height': height,
-                'width': width,
-            })
+            # images.append({
+            #     'date_captured': '2021',
+            #     'file_name': dest_file_name,
+            #     'id': img_id,
+            #     'height': height,
+            #     'width': width,
+            # })
 
             if Path(label_path).exists():
                 new_anno = self.read_annotation(label_path, img_id,
@@ -144,9 +144,18 @@ class YOLOV5ToCOCO(object):
                 if len(new_anno) > 0:
                     annotations.extend(new_anno)
                 else:
-                    raise ValueError(f'{label_path} is empty')
+                    # raise ValueError(f'{label_path} is empty')
+                    continue
             else:
                 raise FileNotFoundError(f'{label_path} not exists')
+            
+            images.append({
+                'date_captured': '2021',
+                'file_name': dest_file_name,
+                'id': img_id,
+                'height': height,
+                'width': width,
+            })
 
         json_data = {
             'info': self.info,
@@ -164,8 +173,9 @@ class YOLOV5ToCOCO(object):
         all_info = read_txt(txt_file)
         for label_info in all_info:
             # 遍历一张图中不同标注对象
+            label_info.strip(' ')
             label_info = label_info.split(" ")
-            if len(label_info) < 5:
+            if not len(label_info) == 5 :
                 continue
 
             category_id, vertex_info = label_info[0], label_info[1:]
@@ -209,7 +219,7 @@ class YOLOV5ToCOCO(object):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser('Datasets converter from YOLOV5 to COCO')
     parser.add_argument('--dir_path', type=str,
-                        default='datasets/YOLOV5',
+                        default='dataset',
                         help='Dataset root path')
     args = parser.parse_args()
 

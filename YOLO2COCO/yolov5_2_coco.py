@@ -120,7 +120,10 @@ class YOLOV5ToCOCO(object):
                              / 'labels' / f'{img_path.stem}.txt')
 
             imgsrc = cv2.imread(str(img_path))
-            height, width = imgsrc.shape[:2]
+            try:
+                height, width = imgsrc.shape[:2]
+            except:
+                continue
 
             dest_file_name = f'{img_id:012d}.jpg'
             save_img_path = target_img_path / dest_file_name
@@ -173,9 +176,8 @@ class YOLOV5ToCOCO(object):
         all_info = read_txt(txt_file)
         for label_info in all_info:
             # 遍历一张图中不同标注对象
-            label_info.strip(' ')
             label_info = label_info.split(" ")
-            if not len(label_info) == 5 :
+            if not len(label_info) == 5:
                 continue
 
             category_id, vertex_info = label_info[0], label_info[1:]

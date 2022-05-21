@@ -16,12 +16,12 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--root_dir', default='./dataset',type=str, help="root path of images and labels, include ./images and ./labels and classes.txt")
 parser.add_argument('--save_path', type=str,default='./train.json', help="if not split the dataset, give a path to a json file")
-parser.add_argument('--random_split', action='store_true', help="random split the dataset, default ratio is 8:1:1")
+parser.add_argument('--random_split', default=True, action='store_true', help="random split the dataset, default ratio is 8:1:1")
 parser.add_argument('--split_by_file', action='store_true', help="define how to split the dataset, include ./train.txt ./val.txt ./test.txt ")
 
 arg = parser.parse_args()
 
-def train_test_val_split_random(img_paths,ratio_train=0.8,ratio_test=0,ratio_val=0.2):
+def train_test_val_split_random(img_paths,ratio_train=0.8,ratio_test=0.1, ratio_val=0.1):
     # 这里可以修改数据集划分的比例。
     assert int(ratio_train+ratio_test+ratio_val) == 1
     train_img, middle_img = train_test_split(img_paths,test_size=1-ratio_train, random_state=233)

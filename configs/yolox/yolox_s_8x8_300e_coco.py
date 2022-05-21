@@ -22,7 +22,7 @@ model = dict(
     test_cfg=dict(score_thr=0.01, nms=dict(type='nms', iou_threshold=0.65)))
 
 # dataset settings
-data_root = 'data/coco/'
+data_root = 'dataset_COCO_format/'
 dataset_type = 'CocoDataset'
 
 train_pipeline = [
@@ -112,7 +112,7 @@ optimizer = dict(
     paramwise_cfg=dict(norm_decay_mult=0., bias_decay_mult=0.))
 optimizer_config = dict(grad_clip=None)
 
-max_epochs = 300
+max_epochs = 100
 num_last_epochs = 15
 resume_from = None
 interval = 10

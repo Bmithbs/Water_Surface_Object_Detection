@@ -52,7 +52,7 @@ class YOLOX(SingleStageDetector):
                  pretrained=None,
                  input_size=(640, 640),
                  size_multiplier=32,
-                 random_size_range=(15, 25),
+                 random_size_range=(15, 25), # multi scale 参数配置
                  random_size_interval=10,
                  init_cfg=None):
         super(YOLOX, self).__init__(backbone, neck, bbox_head, train_cfg,

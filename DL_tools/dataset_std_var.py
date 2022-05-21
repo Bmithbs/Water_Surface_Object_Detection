@@ -12,7 +12,7 @@ import cv2
 import argparse
 
 parser = argparse.ArgumentParser("ROOT SETTING")
-parser.add_argument('--file_path',type=str,default='./dataset/images' , help="root path of images and labels")
+parser.add_argument('--file_path',type=str,default='dataset/images' , help="root path of images and labels")
 parser.add_argument('--step',type=int,default=1 , help="whether to pick interval images")
 
 arg = parser.parse_args()
@@ -26,10 +26,11 @@ means = [0 for i in range(3)]
 stds = [0 for i in range(3)]
 cnt = 0
 for idx in tqdm(range(0, len(pathDir), STEP)):
-    cnt+=1
     filename = pathDir[idx]
     img = cv2.imread(os.path.join(filepath, filename)) 
-    img = img /255.0
+    if isinstance(img, type(None)) : continue
+    cnt+=1
+    img = img / 255.0
     b, g, r = cv2.split(img)
     means[0] += np.mean(r)
     means[1] += np.mean(g)
@@ -40,6 +41,7 @@ means = np.array(means) / cnt
 for idx in tqdm(range(0, len(pathDir), STEP)):
     filename = pathDir[idx]
     img = cv2.imread(os.path.join(filepath, filename)) 
+    if isinstance(img, type(None)) : continue
     img = img /255.0
     b, g, r = cv2.split(img)
     stds[0] += np.mean((r - means[0]) ** 2)

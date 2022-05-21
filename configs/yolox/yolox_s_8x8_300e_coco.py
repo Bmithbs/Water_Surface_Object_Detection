@@ -1,7 +1,7 @@
 _base_ = ['../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py']
 
-img_scale = (320, 320)#(160,160),(240,240),(128,128)]  # height, width
-# multi_scale = [(320, 320),(160,160),(240,240),(128,128)]
+img_scale = (320, 320) # height, width
+
 # model settings
 model = dict(
     type='YOLOX',
@@ -75,7 +75,7 @@ test_pipeline = [
         flip=False,
         transforms=[
             dict(type='Resize', keep_ratio=True),
-            dict(type='RandomFlip'),
+            # dict(type='RandomFlip'),
             dict(
                 type='Pad',
                 pad_to_square=True,
@@ -86,7 +86,7 @@ test_pipeline = [
 ]
 
 data = dict(
-    samples_per_gpu=8,
+    samples_per_gpu=16,
     workers_per_gpu=4,
     persistent_workers=True,
     train=train_dataset,
@@ -105,14 +105,14 @@ data = dict(
 # default 8 gpu
 optimizer = dict(
     type='SGD',
-    lr=0.01,
+    lr=0.001,
     momentum=0.9,
     weight_decay=5e-4,
     nesterov=True,
     paramwise_cfg=dict(norm_decay_mult=0., bias_decay_mult=0.))
 optimizer_config = dict(grad_clip=None)
 
-max_epochs = 150
+max_epochs = 200
 num_last_epochs = 15
 resume_from = None
 interval = 10
@@ -157,7 +157,7 @@ evaluation = dict(
     interval=interval,
     dynamic_intervals=[(max_epochs - num_last_epochs, 1)],
     metric='bbox')
-log_config = dict(interval=50)
+log_config = dict(interval=1)
 
 # NOTE: `auto_scale_lr` is for automatically scaling LR,
 # USER SHOULD NOT CHANGE ITS VALUES.

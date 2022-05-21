@@ -124,3 +124,4 @@ work_dirs/
 *.sh~
 
 logs.txt
+dataset_COCO_format/

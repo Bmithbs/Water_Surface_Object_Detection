@@ -1,6 +1,7 @@
 _base_ = './yolox_s_8x8_300e_coco.py'
 
 pretrained = 'checkpoints/swin_tiny_patch4_window7_224.pth'
+
 # model settings
 model = dict(
     # backbone=dict(deepen_factor=1.0, widen_factor=1.0),
@@ -40,4 +41,10 @@ optimizer = dict(
             'norm': dict(decay_mult=0.)
         }))
 # lr_config = dict(warmup_iters=1000, step=[8, 11])
-img_scale=(640,640)
+img_scale=(320,320)
+load_from = '/root/HSK/Water_Surface_Object_detection/work_dirs/yolox_swin_t_8x8_300e_coco/best_bbox_mAP_epoch_80.pth'
+max_epochs = 200
+num_last_epochs = 15
+interval = 10
+data = dict(samples_per_gpu=16)
+resume_from = '/root/HSK/Water_Surface_Object_detection/work_dirs/yolox_swin_t_8x8_300e_coco/best_bbox_mAP_epoch_40.pth'

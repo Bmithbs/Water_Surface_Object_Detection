@@ -16,3 +16,4 @@ load_from = '/root/HSK/Water_Surface_Object_detection/work_dirs/yolox_config/lat
 data = dict(
     samples_per_gpu=8,
 )
+resume_from = None

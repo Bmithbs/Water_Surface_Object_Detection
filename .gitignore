@@ -24,7 +24,11 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
-dataset/
+dataset/images/
+dataset/labels/
+dataset/OriginImages/
+YOLO2COCO/dataset/
+*.jpg
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -116,7 +120,7 @@ data
 *.log.json
 docs/modelzoo_statistics.md
 mmdet/.mim
-work_dirs/
+# work_dirs/
 
 # Pytorch
 *.pth

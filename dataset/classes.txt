@@ -1,0 +1,10 @@
+lighthouse
+sailboat
+buoy
+railbar
+cargoship
+navalvessels
+passengership
+dock
+submarine
+fishingboat
